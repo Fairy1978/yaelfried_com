@@ -1,0 +1,6 @@
+# Old download folder artifacts
+_assets/
+
+# OS files
+.DS_Store
+Thumbs.db

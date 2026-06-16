@@ -1,0 +1,54 @@
+[[redirects]]
+  from = "/home-en"
+  to = "/home-en.html"
+  status = 200
+
+[[redirects]]
+  from = "/trace-suggestion"
+  to = "/trace-suggestion.html"
+  status = 200
+
+[[redirects]]
+  from = "/trace-suggestion-he"
+  to = "/trace-suggestion-he.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/about-he"
+  to = "/about-he.html"
+  status = 200
+
+[[redirects]]
+  from = "/process"
+  to = "/process.html"
+  status = 200
+
+[[redirects]]
+  from = "/process-he"
+  to = "/process-he.html"
+  status = 200
+
+[[redirects]]
+  from = "/treatment"
+  to = "/treatment.html"
+  status = 200
+
+[[redirects]]
+  from = "/treatment-he"
+  to = "/treatment-he.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact-he"
+  to = "/contact-he.html"
+  status = 200
