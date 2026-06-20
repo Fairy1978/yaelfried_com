@@ -703,6 +703,7 @@
     navContainer.style.zIndex = '';
     var bars = getBars(hamburger);
     for (var i=0; i<bars.length; i++){ bars[i].style.transform = ''; bars[i].style.opacity = ''; }
+    navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = ''; });
   }
 
   function openMenu(){
@@ -713,6 +714,7 @@
     navContainer.style.background = '#fff';
     navContainer.style.padding = '24px 0';
     navContainer.style.gap = '18px';
+    navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = 'center'; });
     navContainer.style.marginTop = '-2px';
     navContainer.style.position = 'relative';
     navContainer.style.zIndex = '10';

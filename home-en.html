@@ -966,6 +966,7 @@
     navContainer.style.gap = '';
     var bars = getBars(hamburger);
     for (var i=0; i<bars.length; i++){ bars[i].style.transform = ''; bars[i].style.opacity = ''; }
+    navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = ''; });
     if (navContainer.parentElement === document.body) {
       if (navOriginalNextSibling && navOriginalNextSibling.parentElement === navOriginalParent) {
         navOriginalParent.insertBefore(navContainer, navOriginalNextSibling);
@@ -994,6 +995,7 @@
     navContainer.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
     navContainer.style.zIndex = '9999';
     navContainer.style.gap = '18px';
+    navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = 'center'; });
     var bars = getBars(hamburger);
     if (bars[0] && bars[1] && bars[2]) {
       var rm = bars[1].getBoundingClientRect();
