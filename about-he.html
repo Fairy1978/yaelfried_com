@@ -692,18 +692,24 @@
 
   var isOpen = false;
   hamburger.style.cursor = 'pointer';
+  var navOriginalParent = navContainer.parentElement;
+  var navOriginalNextSibling = navContainer.nextSibling;
 
   function closeMenu(){
     isOpen = false;
     hiddenAncestor.style.removeProperty('display');
+    navContainer.style.position = '';
+    navContainer.style.top = '';
+    navContainer.style.left = '';
+    navContainer.style.right = '';
     navContainer.style.flexDirection = '';
     navContainer.style.alignItems = '';
     navContainer.style.background = '';
     navContainer.style.padding = '';
-    navContainer.style.gap = '';
-    navContainer.style.marginTop = '';
-    navContainer.style.position = '';
+    navContainer.style.borderRadius = '';
+    navContainer.style.boxShadow = '';
     navContainer.style.zIndex = '';
+    navContainer.style.gap = '';
     var bars = getBars(hamburger);
     for (var i=0; i<bars.length; i++){ bars[i].style.transform = ''; bars[i].style.opacity = ''; }
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = ''; });
@@ -711,24 +717,39 @@
       Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = ''; child.style.marginRight = ''; });
     });
     Array.prototype.slice.call(navContainer.children).reverse().forEach(function(item){ navContainer.appendChild(item); });
+    if (navContainer.parentElement === document.body) {
+      if (navOriginalNextSibling && navOriginalNextSibling.parentElement === navOriginalParent) {
+        navOriginalParent.insertBefore(navContainer, navOriginalNextSibling);
+      } else {
+        navOriginalParent.appendChild(navContainer);
+      }
+    }
   }
 
   function openMenu(){
     isOpen = true;
     hiddenAncestor.style.setProperty('display', 'block', 'important');
+    var rect = hamburger.getBoundingClientRect();
+    if (navContainer.parentElement !== document.body) {
+      document.body.appendChild(navContainer);
+    }
+    navContainer.style.position = 'fixed';
+    navContainer.style.top = rect.bottom + 'px';
+    navContainer.style.left = '20px';
+    navContainer.style.right = '20px';
     navContainer.style.flexDirection = 'column';
-    navContainer.style.alignItems = 'center';
+    navContainer.style.alignItems = 'flex-start';
     navContainer.style.background = '#fff';
-    navContainer.style.padding = '24px 0';
+    navContainer.style.padding = '24px';
+    navContainer.style.borderRadius = '16px';
+    navContainer.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+    navContainer.style.zIndex = '9999';
     navContainer.style.gap = '18px';
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = 'center'; });
     Array.prototype.forEach.call(navContainer.children, function(item){
       Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = 'auto'; child.style.marginRight = 'auto'; });
     });
     Array.prototype.slice.call(navContainer.children).reverse().forEach(function(item){ navContainer.appendChild(item); });
-    navContainer.style.marginTop = '-2px';
-    navContainer.style.position = 'relative';
-    navContainer.style.zIndex = '10';
     var bars = getBars(hamburger);
     if (bars[0] && bars[1] && bars[2]) {
       var rm = bars[1].getBoundingClientRect();
