@@ -611,7 +611,9 @@
     var overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
     var box = document.createElement('div');
-    box.style.cssText = 'background:#fff;border-radius:30px;padding:40px;max-width:800px;max-height:80vh;overflow-y:auto;position:relative;direction:'+dir+';text-align:'+(dir==='rtl'?'right':'left')+';';
+    box.style.cssText = 'background:#fff;border-radius:30px;max-width:800px;max-height:80vh;overflow-y:auto;position:relative;direction:ltr;';
+    var inner = document.createElement('div');
+    inner.style.cssText = 'padding:40px;direction:'+dir+';text-align:'+(dir==='rtl'?'right':'left')+';';
     var closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.textContent = String.fromCharCode(10005);
@@ -625,9 +627,10 @@
     var body = document.createElement('div');
     body.style.cssText = 'font-size:16px;line-height:1.6;color:rgb(17,0,28);white-space:pre-line;font-family:"Heebo","Heebo Placeholder",sans-serif;';
     body.textContent = bodyText;
+    inner.appendChild(heading);
+    inner.appendChild(body);
     box.appendChild(closeBtn);
-    box.appendChild(heading);
-    box.appendChild(body);
+    box.appendChild(inner);
     overlay.appendChild(box);
     document.body.appendChild(overlay);
   }
