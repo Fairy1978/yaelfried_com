@@ -967,8 +967,7 @@
     Array.prototype.forEach.call(navContainer.children, function(item){
       Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = ''; child.style.marginRight = ''; });
     });
-    var homeItem = Array.prototype.find.call(navContainer.children, function(c){ return c.textContent.trim() === 'בית'; });
-    if (homeItem) homeItem.style.order = '';
+    Array.prototype.slice.call(navContainer.children).reverse().forEach(function(item){ navContainer.appendChild(item); });
     if (navContainer.parentElement === document.body) {
       if (navOriginalNextSibling && navOriginalNextSibling.parentElement === navOriginalParent) {
         navOriginalParent.insertBefore(navContainer, navOriginalNextSibling);
@@ -1001,8 +1000,7 @@
     Array.prototype.forEach.call(navContainer.children, function(item){
       Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = 'auto'; child.style.marginRight = 'auto'; });
     });
-    var homeItem = Array.prototype.find.call(navContainer.children, function(c){ return c.textContent.trim() === 'בית'; });
-    if (homeItem) homeItem.style.order = '-1';
+    Array.prototype.slice.call(navContainer.children).reverse().forEach(function(item){ navContainer.appendChild(item); });
     var bars = getBars(hamburger);
     if (bars[0] && bars[1] && bars[2]) {
       var rm = bars[1].getBoundingClientRect();

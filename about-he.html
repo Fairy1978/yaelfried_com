@@ -707,6 +707,7 @@
     Array.prototype.forEach.call(navContainer.children, function(item){
       Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = ''; child.style.marginRight = ''; });
     });
+    Array.prototype.slice.call(navContainer.children).reverse().forEach(function(item){ navContainer.appendChild(item); });
   }
 
   function openMenu(){
@@ -721,6 +722,7 @@
     Array.prototype.forEach.call(navContainer.children, function(item){
       Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = 'auto'; child.style.marginRight = 'auto'; });
     });
+    Array.prototype.slice.call(navContainer.children).reverse().forEach(function(item){ navContainer.appendChild(item); });
     navContainer.style.marginTop = '-2px';
     navContainer.style.position = 'relative';
     navContainer.style.zIndex = '10';
