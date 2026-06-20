@@ -720,9 +720,10 @@
 </script>
 
 <div id="yf-book-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99999;align-items:center;justify-content:center;padding:20px;">
-<div style="background:#fff;border-radius:30px;padding:40px;max-width:760px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 40px rgba(80,30,140,0.08);text-align:center;direction:rtl;">
-<button type="button" id="yf-book-close" style="position:absolute;top:24px;left:24px;width:36px;height:36px;border-radius:50%;border:1px solid #dcc1fe;background:#fff;color:#8a5cf6;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#10005;</button>
-<h2 style="color:#dcc1fe;font-size:30px;font-weight:600;margin:0 0 14px 50px;text-transform:uppercase;font-family:Heebo,sans-serif;">תשלחי לי הודעה בוואטסאפ</h2>
+<div style="background:#fff;border-radius:30px;max-width:760px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 40px rgba(80,30,140,0.08);direction:ltr;">
+<button type="button" id="yf-book-close" style="position:absolute;top:24px;right:24px;width:36px;height:36px;border-radius:50%;border:1px solid #dcc1fe;background:#fff;color:#8a5cf6;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#10005;</button>
+<div style="padding:40px;text-align:center;direction:rtl;">
+<h2 style="color:#dcc1fe;font-size:30px;font-weight:600;margin:0 50px 14px 0;text-transform:uppercase;font-family:Heebo,sans-serif;">תשלחי לי הודעה בוואטסאפ</h2>
 <p style="color:rgb(18,0,29);font-size:20px;font-style:italic;font-weight:400;margin:0 0 28px;font-family:Heebo,sans-serif;">או תשאירי לי פרטים, ואני אשמח לחזור אליך.</p>
 <form name="contact-he" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="yf-book-form" style="text-align:right;direction:rtl;">
 <input type="hidden" name="form-name" value="contact-he"/>
@@ -741,6 +742,7 @@
 </form>
 <div id="yf-book-success" style="display:none;text-align:center;padding:30px 0;">
 <p style="font-size:18px;color:rgb(17,0,28);font-family:Heebo,sans-serif;">תודה! קיבלתי את ההודעה שלך ואחזור אליך בקרוב. &#128150;</p>
+</div>
 </div>
 </div>
 </div>
