@@ -627,6 +627,9 @@
     var bars = getBars(hamburger);
     for (var i=0; i<bars.length; i++){ bars[i].style.transform = ''; bars[i].style.opacity = ''; }
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = ''; });
+    Array.prototype.forEach.call(navContainer.children, function(item){
+      Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = ''; child.style.marginRight = ''; });
+    });
     var homeItem = Array.prototype.find.call(navContainer.children, function(c){ return c.textContent.trim() === 'בית'; });
     if (homeItem) homeItem.style.order = '';
     if (navContainer.parentElement === document.body) {
@@ -658,6 +661,9 @@
     navContainer.style.zIndex = '9999';
     navContainer.style.gap = '18px';
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = 'center'; });
+    Array.prototype.forEach.call(navContainer.children, function(item){
+      Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = 'auto'; child.style.marginRight = 'auto'; });
+    });
     var homeItem = Array.prototype.find.call(navContainer.children, function(c){ return c.textContent.trim() === 'בית'; });
     if (homeItem) homeItem.style.order = '-1';
     var bars = getBars(hamburger);

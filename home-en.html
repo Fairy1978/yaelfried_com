@@ -967,6 +967,9 @@
     var bars = getBars(hamburger);
     for (var i=0; i<bars.length; i++){ bars[i].style.transform = ''; bars[i].style.opacity = ''; }
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = ''; });
+    Array.prototype.forEach.call(navContainer.children, function(item){
+      Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = ''; child.style.marginRight = ''; });
+    });
     if (navContainer.parentElement === document.body) {
       if (navOriginalNextSibling && navOriginalNextSibling.parentElement === navOriginalParent) {
         navOriginalParent.insertBefore(navContainer, navOriginalNextSibling);
@@ -996,6 +999,9 @@
     navContainer.style.zIndex = '9999';
     navContainer.style.gap = '18px';
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = 'center'; });
+    Array.prototype.forEach.call(navContainer.children, function(item){
+      Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = 'auto'; child.style.marginRight = 'auto'; });
+    });
     var bars = getBars(hamburger);
     if (bars[0] && bars[1] && bars[2]) {
       var rm = bars[1].getBoundingClientRect();

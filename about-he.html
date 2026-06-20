@@ -704,6 +704,9 @@
     var bars = getBars(hamburger);
     for (var i=0; i<bars.length; i++){ bars[i].style.transform = ''; bars[i].style.opacity = ''; }
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = ''; });
+    Array.prototype.forEach.call(navContainer.children, function(item){
+      Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = ''; child.style.marginRight = ''; });
+    });
   }
 
   function openMenu(){
@@ -715,6 +718,9 @@
     navContainer.style.padding = '24px 0';
     navContainer.style.gap = '18px';
     navContainer.querySelectorAll('p').forEach(function(p){ p.style.textAlign = 'center'; });
+    Array.prototype.forEach.call(navContainer.children, function(item){
+      Array.prototype.forEach.call(item.children, function(child){ child.style.marginLeft = 'auto'; child.style.marginRight = 'auto'; });
+    });
     navContainer.style.marginTop = '-2px';
     navContainer.style.position = 'relative';
     navContainer.style.zIndex = '10';
