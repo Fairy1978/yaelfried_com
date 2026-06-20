@@ -639,18 +639,18 @@
   var PRIVACY_TITLE = "מדיניות פרטיות";
   var PRIVACY_TEXT = "המסע אל עצמך\n\nהפרטיות שלך חשובה לנו. מסמך זה מסביר כיצד נאסף ונעשה שימוש במידע הנמסר דרך האתר.\n\n\nאיסוף מידע\nבאתר קיים טופס השארת פרטים. בעת מילוי הטופס נאספים הפרטים הבאים:\nשם\nמספר טלפון\nכתובת דואר אלקטרוני\n\nמסירת המידע נעשית ביוזמת הפונה ובהסכמתו.\n\n\nמטרת איסוף המידע\nהמידע נאסף לצורך יצירת קשר אישי עם פונים, מענה לפניות ומתן מידע על השירותים המוצעים.\nהאתר אינו מפעיל רשימת תפוצה, דיוור שיווקי או ניוזלטר.\n\n\nשימוש ושמירת מידע\nהמידע נשמר בצורה מאובטחת ונעשה בו שימוש על ידי בעלת האתר בלבד.\nהמידע אינו מועבר, נמכר או משותף עם צד שלישי, אלא אם קיימת חובה חוקית לעשות כן.\n\n\nCookies וכלי מדידה\nהאתר עשוי להשתמש בקובצי Cookies ובכלי מדידה סטנדרטיים כגון Google Analytics לצורך מדידה סטטיסטית, ניתוח אנונימי של תנועת גולשים ושיפור חוויית השימוש.\nכלים אלו אינם מזהים את הגולש באופן אישי.\n\n\nזכות עיון, תיקון ומחיקה\nכל אדם רשאי לפנות בבקשה לעיין במידע שנשמר עליו, לתקן או למחוק אותו, באמצעות יצירת קשר דרך פרטי ההתקשרות באתר.\n\n\nעדכונים\nמדיניות זו עשויה להתעדכן מעת לעת. נוסח מעודכן יפורסם באתר.\n\nהשארת הפרטים מהווה הסכמה למדיניות הפרטיות של האתר.";
 
-  var termsEl = Array.prototype.find.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='תנאי שימוש'; });
-  if (termsEl) {
+  var termsEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='תנאי שימוש'; });
+  termsEls.forEach(function(termsEl){
     var t = termsEl.closest('[tabindex]') || termsEl;
     t.style.cursor = 'pointer';
     t.addEventListener('click', function(){ buildModal(TERMS_TITLE, TERMS_TEXT, 'rtl'); });
-  }
-  var privacyEl = Array.prototype.find.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='מדיניות פרטיות'; });
-  if (privacyEl) {
+  });
+  var privacyEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='מדיניות פרטיות'; });
+  privacyEls.forEach(function(privacyEl){
     var p = privacyEl.closest('[tabindex]') || privacyEl;
     p.style.cursor = 'pointer';
     p.addEventListener('click', function(){ buildModal(PRIVACY_TITLE, PRIVACY_TEXT, 'rtl'); });
-  }
+  });
 })();
 </script>
 

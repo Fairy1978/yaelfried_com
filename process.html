@@ -636,18 +636,18 @@
   var PRIVACY_TITLE = "PRIVACY POLICY";
   var PRIVACY_TEXT = "The Journey to Yourself\n\nYour privacy is important. This policy explains how information submitted through the website is collected and used.\n\n\nInformation Collection\nThe website includes a contact form. When submitting the form, the following details are collected:\nName\nPhone number\nEmail address\n\nProviding information is voluntary and given with the user’s consent.\n\n\nPurpose of Collection\nInformation is collected solely for personal contact, responding to inquiries, and providing information about the offered services.\nThe website does not operate newsletters or mailing lists.\n\n\nUse and Storage\nInformation is stored securely and used only by the website owner.\nInformation is not sold or shared with third parties unless required by law.\n\n\nCookies and Analytics\nThe website may use cookies and standard analytics tools such as Google Analytics for anonymous traffic analysis and service improvement.\nThese tools do not personally identify users.\n\n\nAccess, Correction and Deletion\nUsers may request access to, correction of, or deletion of their information by contacting the website owner.\n\n\nUpdates\nThis policy may be updated from time to time. The updated version will be published on the website.\n\nBy submitting this form, you agree to the website’s Privacy Policy.";
 
-  var termsEl = Array.prototype.find.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='Terms of use'; });
-  if (termsEl) {
+  var termsEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='Terms of use'; });
+  termsEls.forEach(function(termsEl){
     var t = termsEl.closest('[tabindex]') || termsEl;
     t.style.cursor = 'pointer';
     t.addEventListener('click', function(){ buildModal(TERMS_TITLE, TERMS_TEXT, 'ltr'); });
-  }
-  var privacyEl = Array.prototype.find.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='Privacy Policy'; });
-  if (privacyEl) {
+  });
+  var privacyEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='Privacy Policy'; });
+  privacyEls.forEach(function(privacyEl){
     var p = privacyEl.closest('[tabindex]') || privacyEl;
     p.style.cursor = 'pointer';
     p.addEventListener('click', function(){ buildModal(PRIVACY_TITLE, PRIVACY_TEXT, 'ltr'); });
-  }
+  });
 })();
 </script>
 
