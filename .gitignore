@@ -4,3 +4,12 @@ _assets/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Local Netlify folder
+.netlify
+
+# Local-only dev tooling (used for testing, not part of the site)
+node_modules/
+.tmp_*
+.playwright-mcp/
+*.png
