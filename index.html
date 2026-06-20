@@ -1013,16 +1013,28 @@
 
 <script>
 (function(){
-  var all = document.querySelectorAll('[style*="border-bottom-width"]');
-  for (var i=0; i<all.length; i++){
-    var el = all[i];
-    var style = el.getAttribute('style') || '';
-    if (!/--border-bottom-width:\s*1px/.test(style)) continue;
-    var rect = el.getBoundingClientRect();
-    if (rect.top < 120 && rect.width > 300) {
-      el.style.setProperty('--border-bottom-width', '0px');
+  function fixHeaderBorder(){
+    var all = document.querySelectorAll('[style*="border-bottom-width"]');
+    for (var i=0; i<all.length; i++){
+      var el = all[i];
+      var style = el.getAttribute('style') || '';
+      if (!/--border-bottom-width:\s*1px/.test(style)) continue;
+      var rect = el.getBoundingClientRect();
+      if (rect.top < 120 && rect.width > 300) {
+        el.style.setProperty('--border-bottom-width', '0px');
+      }
     }
   }
+  fixHeaderBorder();
+  window.addEventListener('resize', fixHeaderBorder);
+  window.addEventListener('orientationchange', fixHeaderBorder);
+  var scheduled = false;
+  var observer = new MutationObserver(function(){
+    if (scheduled) return;
+    scheduled = true;
+    setTimeout(function(){ scheduled = false; fixHeaderBorder(); }, 30);
+  });
+  observer.observe(document.body, {attributes: true, attributeFilter: ['style'], subtree: true, childList: true});
 })();
 </script>
 
