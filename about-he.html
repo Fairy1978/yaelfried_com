@@ -842,26 +842,36 @@
     var box = v.parentElement;
     if (!box) return;
     var boxRect = box.getBoundingClientRect();
+    var desc = document.querySelector('[data-framer-name="Description"]');
+    if (!desc) return;
+    var paras = desc.querySelectorAll('p');
+    var lastP = paras[paras.length - 1];
+    if (!lastP) return;
+    var lastLineRect = lastP.getBoundingClientRect();
+    var topPx = (lastLineRect.bottom - boxRect.top) - 10;
     var h1 = document.querySelector('[data-framer-name="h1"]');
-    if (!h1) return;
-    var range = document.createRange();
-    range.selectNodeContents(h1);
-    var rects = Array.prototype.filter.call(range.getClientRects(), function(r){ return r.width > 5 && r.height > 5; });
-    var textRect = rects[0] || h1.getBoundingClientRect();
-    var topPx = (textRect.top - boxRect.top) - 30;
-    var isRTL = getComputedStyle(h1).direction === 'rtl';
-    v.style.top = topPx + 'px';
-    v.style.bottom = 'auto';
+    var isRTL = h1 ? getComputedStyle(h1).direction === 'rtl' : true;
     if (isRTL) {
-      v.style.right = (boxRect.right - textRect.right - 20) + 'px';
-      v.style.left = 'auto';
+      var rightPx = (boxRect.right - lastLineRect.right + 20);
+      v.style.setProperty('inset', topPx + 'px ' + rightPx + 'px auto auto', 'important');
     } else {
-      v.style.left = (textRect.left - boxRect.left - 20) + 'px';
-      v.style.right = 'auto';
+      var leftPx = (lastLineRect.left - boxRect.left - 20);
+      v.style.setProperty('inset', topPx + 'px auto auto ' + leftPx + 'px', 'important');
     }
   }
   repositionSquiggle();
   window.addEventListener('resize', repositionSquiggle);
+  window.addEventListener('load', repositionSquiggle);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(repositionSquiggle);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('img'), function(img){
+    if (!img.complete) {
+      img.addEventListener('load', repositionSquiggle);
+    }
+  });
+  setTimeout(repositionSquiggle, 300);
+  setTimeout(repositionSquiggle, 1000);
 })();
 </script>
 
