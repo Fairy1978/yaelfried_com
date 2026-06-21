@@ -1195,19 +1195,24 @@
   var forms = Array.prototype.slice.call(document.querySelectorAll('form'));
   var form = forms.find(function(f){ return f.querySelector('input[name="Name"]') && f.querySelector('textarea[name="What would you like to share with me?"]'); });
   if (!form) return;
+  var successMsg = document.createElement('p');
+  successMsg.style.cssText = 'display:none;font-size:18px;color:rgb(17,0,28);font-family:"Inter Tight",sans-serif;text-align:center;';
+  successMsg.textContent = "Thank you! I've received your message and I'll get back to you soon. 💖";
+  var errorMsg = document.createElement('p');
+  errorMsg.style.cssText = 'display:none;font-size:16px;color:#c0392b;font-family:"Inter Tight",sans-serif;text-align:center;';
+  errorMsg.textContent = 'Something went wrong sending your message. Please try again, or reach out directly via WhatsApp.';
+  form.parentNode.insertBefore(successMsg, form.nextSibling);
+  form.parentNode.insertBefore(errorMsg, form.nextSibling);
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var nameEl = form.querySelector('input[name="Name"]');
-    var phoneEl = form.querySelector('input[type="tel"]');
-    var emailEl = form.querySelector('input[name="What is your email?"]');
-    var msgEl = form.querySelector('textarea[name="What would you like to share with me?"]');
-    var lines = [];
-    if (nameEl && nameEl.value) lines.push('Name: ' + nameEl.value);
-    if (phoneEl && phoneEl.value) lines.push('Phone: ' + phoneEl.value);
-    if (emailEl && emailEl.value) lines.push('Email: ' + emailEl.value);
-    if (msgEl && msgEl.value) lines.push('Message: ' + msgEl.value);
-    var text = encodeURIComponent(lines.join('\n'));
-    window.location.href = 'https://wa.me/972524460234?text=' + text;
+    errorMsg.style.display = 'none';
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xbdvrqal', { method: 'POST', headers: {'Accept':'application/json'}, body: data })
+      .then(function(response){
+        if (response.ok) { form.style.display = 'none'; successMsg.style.display = 'block'; }
+        else { errorMsg.style.display = 'block'; }
+      })
+      .catch(function(){ errorMsg.style.display = 'block'; });
   });
 })();
 </script>
