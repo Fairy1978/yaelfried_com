@@ -650,9 +650,8 @@
 <button type="button" id="yf-book-close" style="position:absolute;top:24px;right:24px;width:36px;height:36px;border-radius:50%;border:1px solid #dcc1fe;background:#fff;color:#8a5cf6;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#10005;</button>
 <h2 style="color:#dcc1fe;font-size:30px;font-weight:600;margin:0 50px 8px 50px;text-transform:uppercase;font-family:&quot;Inter Tight&quot;,&quot;Inter Tight Placeholder&quot;,sans-serif;">Send me a WhatsApp message</h2>
 <p style="color:rgb(18,0,29);font-size:20px;font-style:italic;font-weight:400;margin:0 0 14px;font-family:&quot;Redaction Italic&quot;,&quot;Redaction Italic Placeholder&quot;,sans-serif;">Or leave me your details, and I'll be happy to get back to you.</p>
-<form name="contact-en" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="yf-book-form" style="text-align:left;">
-<input type="hidden" name="form-name" value="contact-en"/>
-<p style="display:none;"><label>Don't fill this out: <input name="bot-field"/></label></p>
+<form name="contact-en" method="POST" id="yf-book-form" style="text-align:left;">
+<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"/>
 <input type="text" name="name" placeholder="What is your name?" required style="width:100%;box-sizing:border-box;padding:8px 16px;margin-bottom:8px;border:1px solid rgb(17,0,28);border-radius:14px;font-size:16px;font-family:Inter,sans-serif;"/>
 <input type="tel" name="phone" placeholder="What is your phone number?" required style="width:100%;box-sizing:border-box;padding:8px 16px;margin-bottom:8px;border:1px solid rgb(17,0,28);border-radius:14px;font-size:16px;font-family:Inter,sans-serif;"/>
 <input type="email" name="email" placeholder="What is your email?" required style="width:100%;box-sizing:border-box;padding:8px 16px;margin-bottom:8px;border:1px solid rgb(17,0,28);border-radius:14px;font-size:16px;font-family:Inter,sans-serif;"/>
@@ -668,6 +667,9 @@
 <div id="yf-book-success" style="display:none;text-align:center;padding:16px 0;">
 <p style="font-size:18px;color:rgb(17,0,28);font-family:&quot;Inter Tight&quot;,sans-serif;">Thank you! I've received your message and I'll get back to you soon. &#128150;</p>
 </div>
+<div id="yf-book-error" style="display:none;text-align:center;padding:16px 0;">
+<p style="font-size:16px;color:#c0392b;font-family:&quot;Inter Tight&quot;,sans-serif;">Something went wrong sending your message. Please try again, or reach out directly via WhatsApp.</p>
+</div>
 </div>
 </div>
 <script>
@@ -675,18 +677,23 @@
   var overlay = document.getElementById('yf-book-overlay');
   var form = document.getElementById('yf-book-form');
   var success = document.getElementById('yf-book-success');
+  var errorBox = document.getElementById('yf-book-error');
   var closeBtn = document.getElementById('yf-book-close');
   function openModal(){ overlay.style.display = 'flex'; }
-  function closeModal(){ overlay.style.display = 'none'; form.style.display = ''; success.style.display = 'none'; form.reset(); }
+  function closeModal(){ overlay.style.display = 'none'; form.style.display = ''; success.style.display = 'none'; errorBox.style.display = 'none'; form.reset(); }
   closeBtn.addEventListener('click', closeModal);
   overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay.style.display !== 'none') closeModal(); });
   form.addEventListener('submit', function(e){
     e.preventDefault();
+    errorBox.style.display = 'none';
     var data = new FormData(form);
-    fetch('/', { method: 'POST', headers: {'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString() })
-      .then(function(){ form.style.display = 'none'; success.style.display = 'block'; })
-      .catch(function(){ form.style.display = 'none'; success.style.display = 'block'; });
+    fetch('https://formspree.io/f/xbdvrqal', { method: 'POST', headers: {'Accept':'application/json'}, body: data })
+      .then(function(response){
+        if (response.ok) { form.style.display = 'none'; success.style.display = 'block'; }
+        else { errorBox.style.display = 'block'; }
+      })
+      .catch(function(){ errorBox.style.display = 'block'; });
   });
   var triggers = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='BOOK SESSION'; });
   triggers.forEach(function(trigger){
