@@ -849,8 +849,7 @@
     if (!lastP) return;
     var lastLineRect = lastP.getBoundingClientRect();
     var topPx = (lastLineRect.bottom - boxRect.top) - 10;
-    var h1 = document.querySelector('[data-framer-name="h1"]');
-    var isRTL = h1 ? getComputedStyle(h1).direction === 'rtl' : true;
+    var isRTL = getComputedStyle(lastP).direction === 'rtl';
     if (isRTL) {
       var rightPx = (boxRect.right - lastLineRect.right + 20);
       v.style.setProperty('inset', topPx + 'px ' + rightPx + 'px auto auto', 'important');
