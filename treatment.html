@@ -609,11 +609,13 @@
 
 <script>
 (function(){
-  function buildModal(title, bodyText, dir){
+  function buildModal(title, sections, dir){
     var overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
     var box = document.createElement('div');
-    box.style.cssText = 'background:#fff;border-radius:30px;padding:40px;max-width:800px;max-height:80vh;overflow-y:auto;position:relative;direction:'+dir+';text-align:'+(dir==='rtl'?'right':'left')+';';
+    box.style.cssText = 'background:#fff;border-radius:30px;max-width:800px;max-height:80vh;overflow-y:auto;position:relative;direction:ltr;';
+    var inner = document.createElement('div');
+    inner.style.cssText = 'padding:40px;direction:'+dir+';text-align:'+(dir==='rtl'?'right':'left')+';';
     var closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.textContent = String.fromCharCode(10005);
@@ -625,30 +627,60 @@
     heading.textContent = title;
     heading.style.cssText = 'color:#dcc1fe;font-size:26px;font-weight:800;margin:0 0 20px;text-transform:uppercase;font-family:"Inter Tight","Inter Tight Placeholder",sans-serif;';
     var body = document.createElement('div');
-    body.style.cssText = 'font-size:16px;line-height:1.6;color:rgb(17,0,28);white-space:pre-line;font-family:"Inter Tight","Inter Tight Placeholder",sans-serif;';
-    body.textContent = bodyText;
+    body.style.cssText = 'font-family:"Inter Tight","Inter Tight Placeholder",sans-serif;';
+    sections.forEach(function(sec){
+      if (sec.h) {
+        var h = document.createElement('div');
+        h.textContent = sec.h;
+        h.style.cssText = 'font-weight:700;font-size:16px;line-height:1.6;color:rgb(17,0,28);margin:18px 0 0;';
+        body.appendChild(h);
+      }
+      sec.p.forEach(function(line){
+        var p = document.createElement('div');
+        p.textContent = line;
+        p.style.cssText = 'font-weight:400;font-size:16px;line-height:1.6;color:rgb(17,0,28);';
+        body.appendChild(p);
+      });
+    });
+    inner.appendChild(heading);
+    inner.appendChild(body);
     box.appendChild(closeBtn);
-    box.appendChild(heading);
-    box.appendChild(body);
+    box.appendChild(inner);
     overlay.appendChild(box);
     document.body.appendChild(overlay);
   }
   var TERMS_TITLE = "TERMS OF USE";
-  var TERMS_TEXT = "The Journey to Yourself\n\nUse of this website is subject to the terms below.\n\n\nWebsite and Content\nThis website provides general information about services, approach, and processes.\nContent is for informational purposes only and does not constitute medical, psychological, or psychiatric advice.\n\n\nContact via the Website\nSubmitting details through the form constitutes a request for initial contact only.\nSubmission does not create a therapeutic relationship or guarantee any outcome.\n\n\nLiability\nUse of the website and its content is at the user’s sole responsibility.\nThe website owner shall not be liable for any direct or indirect damage resulting from reliance on website content.\n\n\nIntellectual Property\nAll content on the website is the intellectual property of the website owner.\nAny copying or use requires prior written consent.\n\n\nChanges\nThe website owner may update or modify the website at any time.\n\n\nGoverning Law and Jurisdiction\nThese terms are governed by the laws of the State of Israel. Jurisdiction lies with the competent courts in Israel.\n\nBy submitting this form, you agree to the website’s Terms of Use.";
+  var TERMS_SECTIONS = [
+    {h:"The Journey to Yourself", p:["Use of this website is subject to the terms below."]},
+    {h:"Website and Content", p:["This website provides general information about services, approach, and processes.","Content is for informational purposes only and does not constitute medical, psychological, or psychiatric advice."]},
+    {h:"Contact via the Website", p:["Submitting details through the form constitutes a request for initial contact only.","Submission does not create a therapeutic relationship or guarantee any outcome."]},
+    {h:"Liability", p:["Use of the website and its content is at the user’s sole responsibility.","The website owner shall not be liable for any direct or indirect damage resulting from reliance on website content."]},
+    {h:"Intellectual Property", p:["All content on the website is the intellectual property of the website owner.","Any copying or use requires prior written consent."]},
+    {h:"Changes", p:["The website owner may update or modify the website at any time."]},
+    {h:"Governing Law and Jurisdiction", p:["These terms are governed by the laws of the State of Israel. Jurisdiction lies with the competent courts in Israel.","By submitting this form, you agree to the website’s Terms of Use."]}
+  ];
   var PRIVACY_TITLE = "PRIVACY POLICY";
-  var PRIVACY_TEXT = "The Journey to Yourself\n\nYour privacy is important. This policy explains how information submitted through the website is collected and used.\n\n\nInformation Collection\nThe website includes a contact form. When submitting the form, the following details are collected:\nName\nPhone number\nEmail address\n\nProviding information is voluntary and given with the user’s consent.\n\n\nPurpose of Collection\nInformation is collected solely for personal contact, responding to inquiries, and providing information about the offered services.\nThe website does not operate newsletters or mailing lists.\n\n\nUse and Storage\nInformation is stored securely and used only by the website owner.\nInformation is not sold or shared with third parties unless required by law.\n\n\nCookies and Analytics\nThe website may use cookies and standard analytics tools such as Google Analytics for anonymous traffic analysis and service improvement.\nThese tools do not personally identify users.\n\n\nAccess, Correction and Deletion\nUsers may request access to, correction of, or deletion of their information by contacting the website owner.\n\n\nUpdates\nThis policy may be updated from time to time. The updated version will be published on the website.\n\nBy submitting this form, you agree to the website’s Privacy Policy.";
+  var PRIVACY_SECTIONS = [
+    {h:"The Journey to Yourself", p:["Your privacy is important. This policy explains how information submitted through the website is collected and used."]},
+    {h:"Information Collection", p:["The website includes a contact form. When submitting the form, the following details are collected:","Name","Phone number","Email address","Providing information is voluntary and given with the user’s consent."]},
+    {h:"Purpose of Collection", p:["Information is collected solely for personal contact, responding to inquiries, and providing information about the offered services.","The website does not operate newsletters or mailing lists."]},
+    {h:"Use and Storage", p:["Information is stored securely and used only by the website owner.","Information is not sold or shared with third parties unless required by law."]},
+    {h:"Cookies and Analytics", p:["The website may use cookies and standard analytics tools such as Google Analytics for anonymous traffic analysis and service improvement.","These tools do not personally identify users."]},
+    {h:"Access, Correction and Deletion", p:["Users may request access to, correction of, or deletion of their information by contacting the website owner."]},
+    {h:"Updates", p:["This policy may be updated from time to time. The updated version will be published on the website.","By submitting this form, you agree to the website’s Privacy Policy."]}
+  ];
 
   var termsEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='Terms of use'; });
   termsEls.forEach(function(termsEl){
     var t = termsEl.closest('[tabindex]') || termsEl;
     t.style.cursor = 'pointer';
-    t.addEventListener('click', function(){ buildModal(TERMS_TITLE, TERMS_TEXT, 'ltr'); });
+    t.addEventListener('click', function(){ buildModal(TERMS_TITLE, TERMS_SECTIONS, 'ltr'); });
   });
   var privacyEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='Privacy Policy'; });
   privacyEls.forEach(function(privacyEl){
     var p = privacyEl.closest('[tabindex]') || privacyEl;
     p.style.cursor = 'pointer';
-    p.addEventListener('click', function(){ buildModal(PRIVACY_TITLE, PRIVACY_TEXT, 'ltr'); });
+    p.addEventListener('click', function(){ buildModal(PRIVACY_TITLE, PRIVACY_SECTIONS, 'ltr'); });
   });
 })();
 </script>

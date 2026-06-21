@@ -570,7 +570,7 @@
 <!-- End of bodyEnd -->
 <script>
 (function(){
-  function buildModal(title, bodyText, dir){
+  function buildModal(title, sections, dir){
     var overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
     var box = document.createElement('div');
@@ -588,8 +588,21 @@
     heading.textContent = title;
     heading.style.cssText = 'color:#dcc1fe;font-size:26px;font-weight:800;margin:0 0 20px;font-family:"Heebo","Heebo Placeholder",sans-serif;';
     var body = document.createElement('div');
-    body.style.cssText = 'font-size:16px;line-height:1.6;color:rgb(17,0,28);white-space:pre-line;font-family:"Heebo","Heebo Placeholder",sans-serif;';
-    body.textContent = bodyText;
+    body.style.cssText = 'font-family:"Heebo","Heebo Placeholder",sans-serif;';
+    sections.forEach(function(sec){
+      if (sec.h) {
+        var h = document.createElement('div');
+        h.textContent = sec.h;
+        h.style.cssText = 'font-weight:700;font-size:16px;line-height:1.6;color:rgb(17,0,28);margin:18px 0 0;';
+        body.appendChild(h);
+      }
+      sec.p.forEach(function(line){
+        var p = document.createElement('div');
+        p.textContent = line;
+        p.style.cssText = 'font-weight:400;font-size:16px;line-height:1.6;color:rgb(17,0,28);';
+        body.appendChild(p);
+      });
+    });
     inner.appendChild(heading);
     inner.appendChild(body);
     box.appendChild(closeBtn);
@@ -598,21 +611,37 @@
     document.body.appendChild(overlay);
   }
   var TERMS_TITLE = "תנאי שימוש";
-  var TERMS_TEXT = "המסע אל עצמך\n\nהשימוש באתר כפוף לתנאים המפורטים להלן.\n\n\nמהות האתר והתוכן\nהאתר הינו אתר תדמיתי המציג מידע כללי אודות השירותים, הגישה והתהליכים המוצעים.\nהתוכן באתר נועד למידע כללי בלבד ואינו מהווה ייעוץ רפואי, פסיכולוגי או פסיכיאטרי.\n\n\nפנייה דרך האתר\nהשארת פרטים בטופס באתר מהווה בקשה ליצירת קשר ראשוני בלבד.\nהפנייה אינה יוצרת התקשרות טיפולית ואינה מהווה התחייבות לתוצאה כלשהי.\n\n\nאחריות\nהשימוש באתר ובתכניו נעשה באחריות המשתמש בלבד.\nבעלת האתר לא תישא באחריות לנזק ישיר או עקיף הנגרם מהסתמכות על מידע המופיע באתר.\n\n\nקניין רוחני\nכל התכנים באתר הם קניינה הרוחני של בעלת האתר.\nאין להעתיק, לשכפל או לעשות שימוש בתכנים ללא אישור מראש ובכתב.\n\n\nשינויים באתר\nבעלת האתר רשאית לשנות, לעדכן או להפסיק את פעילות האתר בכל עת.\n\n\nסמכות שיפוט\nעל תנאים אלו יחולו דיני מדינת ישראל. סמכות השיפוט נתונה לבתי המשפט בישראל.\n\nהשארת הפרטים מהווה הסכמה לתנאי השימוש של האתר.";
+  var TERMS_SECTIONS = [
+    {h:"המסע אל עצמך", p:["השימוש באתר כפוף לתנאים המפורטים להלן."]},
+    {h:"מהות האתר והתוכן", p:["האתר הינו אתר תדמיתי המציג מידע כללי אודות השירותים, הגישה והתהליכים המוצעים.","התוכן באתר נועד למידע כללי בלבד ואינו מהווה ייעוץ רפואי, פסיכולוגי או פסיכיאטרי."]},
+    {h:"פנייה דרך האתר", p:["השארת פרטים בטופס באתר מהווה בקשה ליצירת קשר ראשוני בלבד.","הפנייה אינה יוצרת התקשרות טיפולית ואינה מהווה התחייבות לתוצאה כלשהי."]},
+    {h:"אחריות", p:["השימוש באתר ובתכניו נעשה באחריות המשתמש בלבד.","בעלת האתר לא תישא באחריות לנזק ישיר או עקיף הנגרם מהסתמכות על מידע המופיע באתר."]},
+    {h:"קניין רוחני", p:["כל התכנים באתר הם קניינה הרוחני של בעלת האתר.","אין להעתיק, לשכפל או לעשות שימוש בתכנים ללא אישור מראש ובכתב."]},
+    {h:"שינויים באתר", p:["בעלת האתר רשאית לשנות, לעדכן או להפסיק את פעילות האתר בכל עת."]},
+    {h:"סמכות שיפוט", p:["על תנאים אלו יחולו דיני מדינת ישראל. סמכות השיפוט נתונה לבתי המשפט בישראל.","השארת הפרטים מהווה הסכמה לתנאי השימוש של האתר."]}
+  ];
   var PRIVACY_TITLE = "מדיניות פרטיות";
-  var PRIVACY_TEXT = "המסע אל עצמך\n\nהפרטיות שלך חשובה לנו. מסמך זה מסביר כיצד נאסף ונעשה שימוש במידע הנמסר דרך האתר.\n\n\nאיסוף מידע\nבאתר קיים טופס השארת פרטים. בעת מילוי הטופס נאספים הפרטים הבאים:\nשם\nמספר טלפון\nכתובת דואר אלקטרוני\n\nמסירת המידע נעשית ביוזמת הפונה ובהסכמתו.\n\n\nמטרת איסוף המידע\nהמידע נאסף לצורך יצירת קשר אישי עם פונים, מענה לפניות ומתן מידע על השירותים המוצעים.\nהאתר אינו מפעיל רשימת תפוצה, דיוור שיווקי או ניוזלטר.\n\n\nשימוש ושמירת מידע\nהמידע נשמר בצורה מאובטחת ונעשה בו שימוש על ידי בעלת האתר בלבד.\nהמידע אינו מועבר, נמכר או משותף עם צד שלישי, אלא אם קיימת חובה חוקית לעשות כן.\n\n\nCookies וכלי מדידה\nהאתר עשוי להשתמש בקובצי Cookies ובכלי מדידה סטנדרטיים כגון Google Analytics לצורך מדידה סטטיסטית, ניתוח אנונימי של תנועת גולשים ושיפור חוויית השימוש.\nכלים אלו אינם מזהים את הגולש באופן אישי.\n\n\nזכות עיון, תיקון ומחיקה\nכל אדם רשאי לפנות בבקשה לעיין במידע שנשמר עליו, לתקן או למחוק אותו, באמצעות יצירת קשר דרך פרטי ההתקשרות באתר.\n\n\nעדכונים\nמדיניות זו עשויה להתעדכן מעת לעת. נוסח מעודכן יפורסם באתר.\n\nהשארת הפרטים מהווה הסכמה למדיניות הפרטיות של האתר.";
+  var PRIVACY_SECTIONS = [
+    {h:"המסע אל עצמך", p:["הפרטיות שלך חשובה לנו. מסמך זה מסביר כיצד נאסף ונעשה שימוש במידע הנמסר דרך האתר."]},
+    {h:"איסוף מידע", p:["באתר קיים טופס השארת פרטים. בעת מילוי הטופס נאספים הפרטים הבאים:","שם","מספר טלפון","כתובת דואר אלקטרוני","מסירת המידע נעשית ביוזמת הפונה ובהסכמתו."]},
+    {h:"מטרת איסוף המידע", p:["המידע נאסף לצורך יצירת קשר אישי עם פונים, מענה לפניות ומתן מידע על השירותים המוצעים.","האתר אינו מפעיל רשימת תפוצה, דיוור שיווקי או ניוזלטר."]},
+    {h:"שימוש ושמירת מידע", p:["המידע נשמר בצורה מאובטחת ונעשה בו שימוש על ידי בעלת האתר בלבד.","המידע אינו מועבר, נמכר או משותף עם צד שלישי, אלא אם קיימת חובה חוקית לעשות כן."]},
+    {h:"Cookies וכלי מדידה", p:["האתר עשוי להשתמש בקובצי Cookies ובכלי מדידה סטנדרטיים כגון Google Analytics לצורך מדידה סטטיסטית, ניתוח אנונימי של תנועת גולשים ושיפור חוויית השימוש.","כלים אלו אינם מזהים את הגולש באופן אישי."]},
+    {h:"זכות עיון, תיקון ומחיקה", p:["כל אדם רשאי לפנות בבקשה לעיין במידע שנשמר עליו, לתקן או למחוק אותו, באמצעות יצירת קשר דרך פרטי ההתקשרות באתר."]},
+    {h:"עדכונים", p:["מדיניות זו עשויה להתעדכן מעת לעת. נוסח מעודכן יפורסם באתר.","השארת הפרטים מהווה הסכמה למדיניות הפרטיות של האתר."]}
+  ];
 
   var termsEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='תנאי שימוש'; });
   termsEls.forEach(function(termsEl){
     var t = termsEl.closest('[tabindex]') || termsEl;
     t.style.cursor = 'pointer';
-    t.addEventListener('click', function(){ buildModal(TERMS_TITLE, TERMS_TEXT, 'rtl'); });
+    t.addEventListener('click', function(){ buildModal(TERMS_TITLE, TERMS_SECTIONS, 'rtl'); });
   });
   var privacyEls = Array.prototype.filter.call(document.querySelectorAll('*'), function(e){ return e.children.length===0 && e.textContent.trim()==='מדיניות פרטיות'; });
   privacyEls.forEach(function(privacyEl){
     var p = privacyEl.closest('[tabindex]') || privacyEl;
     p.style.cursor = 'pointer';
-    p.addEventListener('click', function(){ buildModal(PRIVACY_TITLE, PRIVACY_TEXT, 'rtl'); });
+    p.addEventListener('click', function(){ buildModal(PRIVACY_TITLE, PRIVACY_SECTIONS, 'rtl'); });
   });
 })();
 </script>
