@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    { "source": "/home-en", "destination": "/home-en.html" },
+    { "source": "/trace-suggestion", "destination": "/trace-suggestion.html" },
+    { "source": "/trace-suggestion-he", "destination": "/trace-suggestion-he.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/about-he", "destination": "/about-he.html" },
+    { "source": "/process", "destination": "/process.html" },
+    { "source": "/process-he", "destination": "/process-he.html" },
+    { "source": "/treatment", "destination": "/treatment.html" },
+    { "source": "/treatment-he", "destination": "/treatment-he.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/contact-he", "destination": "/contact-he.html" }
+  ]
+}
