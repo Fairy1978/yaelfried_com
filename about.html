@@ -847,14 +847,8 @@
     if (!lastP) return;
     var lastLineRect = lastP.getBoundingClientRect();
     var topPx = (lastLineRect.bottom - boxRect.top) - 10;
-    var isRTL = getComputedStyle(lastP).direction === 'rtl';
-    if (isRTL) {
-      var rightPx = (boxRect.right - lastLineRect.right + 20);
-      v.style.setProperty('inset', topPx + 'px ' + rightPx + 'px auto auto', 'important');
-    } else {
-      var leftPx = (lastLineRect.left - boxRect.left - 20);
-      v.style.setProperty('inset', topPx + 'px auto auto ' + leftPx + 'px', 'important');
-    }
+    var rightPx = (boxRect.right - lastLineRect.right + 20);
+    v.style.setProperty('inset', topPx + 'px ' + rightPx + 'px auto auto', 'important');
   }
   repositionSquiggle();
   window.addEventListener('resize', repositionSquiggle);
