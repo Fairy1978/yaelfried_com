@@ -832,5 +832,36 @@
 })();
 </script>
 
+<script>
+(function(){
+  function repositionSquiggle(){
+    var v = document.querySelector('[data-framer-name="Vector 1"]');
+    if (!v) return;
+    var box = v.parentElement;
+    if (!box) return;
+    var boxRect = box.getBoundingClientRect();
+    var h1 = document.querySelector('[data-framer-name="h1"]');
+    if (!h1) return;
+    var range = document.createRange();
+    range.selectNodeContents(h1);
+    var rects = Array.prototype.filter.call(range.getClientRects(), function(r){ return r.width > 5 && r.height > 5; });
+    var textRect = rects[0] || h1.getBoundingClientRect();
+    var topPx = (textRect.top - boxRect.top) - 30;
+    var isRTL = getComputedStyle(h1).direction === 'rtl';
+    v.style.top = topPx + 'px';
+    v.style.bottom = 'auto';
+    if (isRTL) {
+      v.style.right = (boxRect.right - textRect.right - 20) + 'px';
+      v.style.left = 'auto';
+    } else {
+      v.style.left = (textRect.left - boxRect.left - 20) + 'px';
+      v.style.right = 'auto';
+    }
+  }
+  repositionSquiggle();
+  window.addEventListener('resize', repositionSquiggle);
+})();
+</script>
+
 </body>
 </html>
