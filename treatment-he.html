@@ -885,7 +885,7 @@ src="https://www.facebook.com/tr?id=871510868935639&ev=PageView&noscript=1"
      bars that land on whole pixels. Nudge each bar onto the device pixel grid
      so all three rasterise identically. The shift is under half a device
      pixel, so nothing moves visibly and the bar weight is unchanged. */
-  var bars = null, observer = null, queued = false;
+  var bars = null, observer = null, queued = false, baseHeight = 2;
 
   function findBars(){
     var divs = document.querySelectorAll('div');
@@ -919,10 +919,18 @@ src="https://www.facebook.com/tr?id=871510868935639&ev=PageView&noscript=1"
   function apply(){
     if (!bars || menuIsOpen()) return;
     var dpr = window.devicePixelRatio || 1;
+    /* Round the bar height to whole device pixels too, not just the position.
+       A 2px bar is 2.7 device pixels at some display scalings, and Chrome
+       rounds each bar's painted height on its own, so one bar ends up with 3
+       rows of ink while its neighbours get 2 and reads visibly fatter. At the
+       common ratios (1, 1.5, 2) this rounds back to exactly 2px, so the line
+       weight is unchanged. */
+    var h = Math.max(1, Math.round(baseHeight * dpr)) / dpr;
     observer.disconnect();
     for (var i = 0; i < bars.length; i++){
       var bar = bars[i];
       bar.style.transform = '';
+      bar.style.height = h + 'px';
       var top = bar.getBoundingClientRect().top * dpr;
       bar.style.transform = 'translateY(' + ((Math.round(top) - top) / dpr) + 'px)';
     }
@@ -957,10 +965,29 @@ src="https://www.facebook.com/tr?id=871510868935639&ev=PageView&noscript=1"
     if (bars) { schedule(); return; }
     bars = findBars();
     if (!bars) return;
+    /* Capture the designed thickness before we ever override it. */
+    baseHeight = parseFloat(getComputedStyle(bars[0]).height) || 2;
     observer = new MutationObserver(schedule);
     apply();
     window.addEventListener('resize', schedule);
     watchScale();
+    /* Self-healing check. Framer rewrites these styles, the display scaling can
+       change without firing anything we listen for, and ancestor layout can
+       shift the icon. Rather than trying to enumerate every trigger, just look
+       at whether the bars are still on the device pixel grid and repair them if
+       they are not. Three getBoundingClientRect reads twice a second. */
+    setInterval(function(){
+      if (!bars) return;
+      var dpr = window.devicePixelRatio || 1;
+      for (var i = 0; i < bars.length; i++){
+        var box = bars[i].getBoundingClientRect();
+        var t = box.top * dpr, h = box.height * dpr;
+        if (Math.abs(t - Math.round(t)) > 0.01 || Math.abs(h - Math.round(h)) > 0.01){
+          schedule();
+          return;
+        }
+      }
+    }, 500);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
