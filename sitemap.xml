@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://yaelfried.com/</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/home-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yaelfried.com/home-en</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/home-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/"/>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://yaelfried.com/treatment-he</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/treatment-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/treatment"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/treatment-he"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yaelfried.com/treatment</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/treatment-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/treatment"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/treatment-he"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://yaelfried.com/trace-suggestion-he</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/trace-suggestion-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/trace-suggestion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/trace-suggestion-he"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yaelfried.com/trace-suggestion</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/trace-suggestion-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/trace-suggestion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/trace-suggestion-he"/>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://yaelfried.com/process-he</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/process-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/process"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/process-he"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yaelfried.com/process</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/process-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/process"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/process-he"/>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://yaelfried.com/about-he</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/about-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/about-he"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yaelfried.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/about-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/about-he"/>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://yaelfried.com/contact-he</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/contact-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/contact-he"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yaelfried.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://yaelfried.com/contact-he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yaelfried.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yaelfried.com/contact-he"/>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>
