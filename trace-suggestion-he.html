@@ -832,7 +832,7 @@ src="https://www.facebook.com/tr?id=871510868935639&ev=PageView&noscript=1"
   var left = document.querySelector('[data-framer-name="left"]');
   if (!left) return;
   var headlineContainer = left.querySelector('[data-framer-name="Title"]');
-  var headline = headlineContainer ? headlineContainer.querySelector('p') : null;
+  var headline = headlineContainer ? headlineContainer.querySelector('p, h1, h2, h3, h4') : null;
   var titles = {
     '1': 'מה קורה במצב של טראנס טיפולי?',
     '2': 'חשוב שתדעי:',
@@ -855,7 +855,7 @@ src="https://www.facebook.com/tr?id=871510868935639&ev=PageView&noscript=1"
     var inner = candidates.find(function(c){ return c.offsetParent !== null; }) || candidates[0];
     return inner || s;
   });
-  var textEls = dimTargets.map(function(el){ return Array.prototype.slice.call(el.querySelectorAll('p')); });
+  var textEls = dimTargets.map(function(el){ return Array.prototype.slice.call(el.querySelectorAll('p, h1, h2, h3, h4')); });
   function setStepActive(idx){
     textEls[idx].forEach(function(p){ p.style.transition = 'color 0.3s ease'; p.style.color = 'rgb(20,20,20)'; });
   }
