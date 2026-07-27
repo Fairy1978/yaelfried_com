@@ -13,4 +13,6 @@ node_modules/
 .tmp_*
 .playwright-mcp/
 *.png
+# except the site's own images, which have to ship
+!assets/*.png
 .vercel
