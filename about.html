@@ -905,5 +905,98 @@ src="https://www.facebook.com/tr?id=871510868935639&ev=PageView&noscript=1"
   window.addEventListener('load', setYear);
 })();
 </script>
+<script>
+(function(){
+  /* hamburger-bar-pixel-snap
+     The hamburger's three bars are 2px tall and sit 11px apart. 11px is not a
+     whole number of device pixels at fractional display scaling (11 * 1.5 =
+     16.5), so every other bar starts on a half pixel. Those bars get spread
+     across an extra pixel row at partial darkness and read lighter than the
+     bars that land on whole pixels. Nudge each bar onto the device pixel grid
+     so all three rasterise identically. The shift is under half a device
+     pixel, so nothing moves visibly and the bar weight is unchanged. */
+  var bars = null, observer = null, queued = false;
+
+  function findBars(){
+    var divs = document.querySelectorAll('div');
+    for (var i = 0; i < divs.length; i++){
+      var group = divs[i];
+      if (group.children.length !== 3) continue;
+      var box = group.getBoundingClientRect();
+      if (!box.height || box.height > 40 || box.width > 60) continue;
+      var found = [];
+      for (var j = 0; j < 3; j++){
+        var kid = group.children[j];
+        if (kid.tagName !== 'DIV' || kid.children.length) break;
+        var s = getComputedStyle(kid);
+        if (s.position !== 'absolute' || s.backgroundColor !== 'rgb(0, 0, 0)') break;
+        found.push(kid);
+      }
+      if (found.length === 3) return found;
+    }
+    return null;
+  }
+
+  /* While the menu is open the open/close animation owns these transforms. */
+  function menuIsOpen(){
+    for (var i = 0; i < bars.length; i++){
+      if (bars[i].style.opacity === '0') return true;
+      if (bars[i].style.transform.indexOf('rotate') !== -1) return true;
+    }
+    return false;
+  }
+
+  function apply(){
+    if (!bars || menuIsOpen()) return;
+    var dpr = window.devicePixelRatio || 1;
+    observer.disconnect();
+    for (var i = 0; i < bars.length; i++){
+      var bar = bars[i];
+      bar.style.transform = '';
+      var top = bar.getBoundingClientRect().top * dpr;
+      bar.style.transform = 'translateY(' + ((Math.round(top) - top) / dpr) + 'px)';
+    }
+    for (var k = 0; k < bars.length; k++){
+      observer.observe(bars[k], { attributes: true, attributeFilter: ['style'] });
+    }
+  }
+
+  /* Framer's runtime rewrites these inline styles after hydration, so re-assert
+     whenever something else changes them. Batched to a frame, and the observer
+     is disconnected while we write, so our own writes cannot feed back. */
+  function schedule(){
+    if (queued) return;
+    queued = true;
+    /* requestAnimationFrame never fires while the tab is in the background, so
+       race it against a timer and let whichever arrives first do the work. */
+    var run = function(){ if (!queued) return; queued = false; apply(); };
+    requestAnimationFrame(run);
+    setTimeout(run, 100);
+  }
+
+  /* Browser zoom changes devicePixelRatio without firing anything else. */
+  function watchScale(){
+    if (!window.matchMedia) return;
+    var mq = matchMedia('(resolution: ' + (window.devicePixelRatio || 1) + 'dppx)');
+    var onChange = function(){ schedule(); watchScale(); };
+    if (mq.addEventListener) mq.addEventListener('change', onChange, { once: true });
+    else if (mq.addListener) mq.addListener(onChange);
+  }
+
+  function init(){
+    if (bars) { schedule(); return; }
+    bars = findBars();
+    if (!bars) return;
+    observer = new MutationObserver(schedule);
+    apply();
+    window.addEventListener('resize', schedule);
+    watchScale();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  window.addEventListener('load', function(){ setTimeout(init, 0); });
+})();
+</script>
 </body>
 </html>
