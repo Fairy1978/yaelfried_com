@@ -25,13 +25,14 @@ This site was originally built and hosted on Framer (paid plan, ~29 NIS/month, p
 | `treatment-he.html` | `treatment.html` |
 | `contact-he.html` | `contact.html` |
 
-`netlify.toml` contains redirects so clean URLs (e.g. `/about`) map to the right `.html` file.
+`vercel.json` contains rewrites so clean URLs (e.g. `/about`) map to the right `.html` file.
 
 ## Known outstanding items
 
-1. **Contact form is currently non-functional.** It was a Framer-native form; needs to be replaced with Netlify Forms (add `netlify` attribute to the `<form>` tag and a hidden `form-name` input) on `contact.html` and `contact-he.html`.
+1. ~~Contact form non-functional.~~ **Resolved.** Both forms post to Formspree via `fetch()`. Verified 2026-08-29.
 2. **Images, fonts, and JS still load from Framer's CDN** (`framerusercontent.com`). This works fine today, but if the Framer subscription is ever cancelled, these assets may stop loading. Before cancelling Framer, download all CDN assets referenced in these pages and rehost them locally (update `<img src>`, `<link href>`, `<script src>` accordingly).
-3. **Domain not yet migrated.** `yaelfried.com` still points to Framer's hosting. Once the Netlify deploy is verified working, DNS needs to be updated to point to Netlify instead.
+3. ~~Domain not yet migrated.~~ **Resolved.** `yaelfried.com` serves from Vercel; pushes to `main` reach the live domain. Verified 2026-08-29.
+4. **No Search Console.** Nothing measures what people actually search to reach the site, so all keyword targeting is reasoning rather than measurement.
 
 ## Editing conventions
 
