@@ -4,12 +4,13 @@ Static website for Yael Fried, a trauma/anxiety therapist (trance & suggestion m
 
 ## Background
 
-This site was originally built and hosted on Framer (paid plan, ~29 NIS/month, paid yearly through December 2026). It was migrated to static HTML to move hosting to Netlify for free, since Framer doesn't support exporting sites for self-hosting.
+This site was originally built and hosted on Framer (paid plan, ~29 NIS/month, paid yearly through December 2026). It was migrated to static HTML to move hosting to Vercel for free, since Framer doesn't support exporting sites for self-hosting.
 
 ## Deploy workflow
 
-- This repo is connected to Netlify for auto-deploy: every push to `main` on GitHub (`github.com/Fairy1978/yaelfried_com`) triggers a new Netlify deploy.
+- This repo is connected to **Vercel** (project `yaelfried-com`, org `yael-f-projects`) for auto-deploy: every push to `main` on GitHub (`github.com/Fairy1978/yaelfried_com`) triggers a new Vercel production deploy.
 - To make a change: edit the relevant `.html` file(s), `git add`, `git commit`, `git push`. No manual upload needed.
+- `vercel.json` holds the clean-URL rewrite rules (Vercel's equivalent of the old `netlify.toml` redirects). `netlify.toml` and `.netlify/` are stale leftovers from an earlier abandoned Netlify attempt — not in active use.
 
 ## Site structure
 
