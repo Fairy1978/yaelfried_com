@@ -16,3 +16,11 @@ node_modules/
 # except the site's own images, which have to ship
 !assets/*.png
 .vercel
+
+# scratch files from fetching third-party pages
+ep.html
+lt.html
+yt.html
+btl.html
+live.html
+*.tmp.html
