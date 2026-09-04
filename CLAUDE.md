@@ -30,9 +30,20 @@ This site was originally built and hosted on Framer (paid plan, ~29 NIS/month, p
 ## Known outstanding items
 
 1. ~~Contact form non-functional.~~ **Resolved.** Both forms post to Formspree via `fetch()`. Verified 2026-08-29.
-2. **Images, fonts, and JS still load from Framer's CDN** (`framerusercontent.com`). This works fine today, but if the Framer subscription is ever cancelled, these assets may stop loading. Before cancelling Framer, download all CDN assets referenced in these pages and rehost them locally (update `<img src>`, `<link href>`, `<script src>` accordingly).
+2. ~~Images, fonts, and JS load from Framer's CDN.~~ **Resolved 2026-09-04.** All 89 assets
+   (44 fonts, 42 images, 3 photos) are committed under `assets/` and every page points at the
+   local copies. Framer's analytics beacon, its editor bootstrap, 103 dead `modulepreload`
+   hints and 24 dead search-index meta tags were removed at the same time. No page makes any
+   request to Framer any more, verified live on all 12 pages. **The Framer subscription can
+   now be cancelled without breaking the site.** Google Fonts and the Meta Pixel are unrelated
+   and still in use.
 3. ~~Domain not yet migrated.~~ **Resolved.** `yaelfried.com` serves from Vercel; pushes to `main` reach the live domain. Verified 2026-08-29.
-4. **No Search Console.** Nothing measures what people actually search to reach the site, so all keyword targeting is reasoning rather than measurement.
+4. **Search Console is connected**, contrary to an earlier note here. As of 2026-09-04 it shows
+   4 clicks in ~3 months, and 6 of the 12 pages are not indexed: `/home-en`, `/trace-suggestion`,
+   `/treatment`, `/process-he`, `/process` are "Crawled - currently not indexed", and
+   `/contact-he` is "Discovered - currently not indexed". The sitemap is healthy, so this is a
+   content/authority judgment by Google rather than a technical fault. This is the largest open
+   item for search visibility.
 
 ## Editing conventions
 
