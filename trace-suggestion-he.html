@@ -682,8 +682,17 @@ src="https://www.facebook.com/tr?id=871510868935639&ev=PageView&noscript=1"
 </script>
 <!-- SnippetEnd: AikBcTI_E -->
 <!-- End of headEnd -->
-<style>/* footer socials: wrap to two rows on narrow phones so all four icons fit */
-@media (max-width:499px){[data-framer-name="mobile"] div[data-framer-name="icons"]{flex-wrap:wrap;justify-content:center;gap:24px;max-width:240px;margin-left:auto;margin-right:auto}}</style></head>
+<style>/* footer socials: keep all four icons on one line on phones, and put the
+   tagline above them in both languages (Hebrew markup lists icons first) */
+[data-framer-name="mobile"] div[data-framer-name="icons"]{order:2}
+[data-framer-name="mobile"] div[data-framer-name="For more content and inspiration"]{order:1}
+@media (max-width:499px){
+ [data-framer-name="mobile"] div[data-framer-name="icons"]{flex-wrap:nowrap;justify-content:center;gap:10px;width:100%;max-width:none;margin:0}
+ [data-framer-name="mobile"] div[data-framer-name="icons"]>a{zoom:.62}
+}
+@media (max-width:359px){
+ [data-framer-name="mobile"] div[data-framer-name="icons"]>a{zoom:.55}
+}</style></head>
 <body>
 <!-- Start of bodyStart -->
 <!-- End of bodyStart -->
