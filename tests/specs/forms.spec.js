@@ -75,6 +75,9 @@ test.describe('main site contact form', () => {
         expect(opened, `${p.path}: the "book a session" trigger that opens the form is gone`).toBe(true);
       }
 
+      // The Framer form on the homepages hydrates after load; wait for it
+      // explicitly so a slow response reads as slow, not as a missing form.
+      await page.waitForSelector('form input[type="email"]', { state: 'attached', timeout: 20000 });
       const form = contactForm(page);
       await expect(form, `${p.path}: no contact form found`).toHaveCount(1);
 
@@ -109,6 +112,9 @@ test.describe('main site contact form', () => {
       await page.goto(p.url, { waitUntil: 'load' });
       await openFormIfModal(page, p.path);
 
+      // The Framer form on the homepages hydrates after load; wait for it
+      // explicitly so a slow response reads as slow, not as a missing form.
+      await page.waitForSelector('form input[type="email"]', { state: 'attached', timeout: 20000 });
       const form = contactForm(page);
       await form.locator('input[type="text"]:not([aria-hidden="true"])').first().fill(FILL.name);
       await form.locator('input[type="tel"]').first().fill(FILL.phone);
@@ -133,6 +139,9 @@ test.describe('main site contact form', () => {
       await page.goto(p.url, { waitUntil: 'load' });
       await openFormIfModal(page, p.path);
 
+      // The Framer form on the homepages hydrates after load; wait for it
+      // explicitly so a slow response reads as slow, not as a missing form.
+      await page.waitForSelector('form input[type="email"]', { state: 'attached', timeout: 20000 });
       const form = contactForm(page);
       await form.locator('button[type="submit"], input[type="submit"]').first().click();
       await page.waitForTimeout(2000);

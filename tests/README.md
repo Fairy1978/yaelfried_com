@@ -84,21 +84,17 @@ Every request to formspree.io is intercepted and aborted. No test lead ever
 reaches the inbox and no Formspree quota is spent, while still proving the
 submission is wired up correctly.
 
-## Known issues this suite records
+## Fixed, and now guarded by tests
 
-**The landing page accepts a lead with no email address.** The email box has no
-`required` attribute and the script only checks the format of an email that was
-actually typed, so a lead can arrive with a name and phone but no email. The
-error message for it exists in the page but never displays, which suggests
-requiring it was the original intent. This is *pinned* by a test rather than
-fixed, because whether to require an email is a business decision: requiring it
-means fewer but more contactable leads. See the comment on
-`email is currently optional` in `specs/forms.spec.js`.
+**The landing form used to accept a lead with no email address.** Fixed
+2026-09-07: the field is required and the validator rejects an empty value, so
+every lead arrives with a contactable address.
 
-**The language toggle goes to the homepage, not the matching page.** From
-`/about-he`, "EN" lands on `/home-en` rather than `/about`. The suite asserts
-only that a route into the other language exists. If the toggle is ever made
-page-to-page, tighten that test to use each page's `alt`.
+**The language toggle used to go to the other language's home page.** Fixed
+2026-09-07: EN/HE now lands on the matching page, which also gives Google a
+page-level pairing between the two language versions.
+
+## Known issue this suite records
 
 **The links page is ~23px too tall on a 320x568 screen** (the original iPhone
 SE). Pre-existing: the version from before the TikTok icon measured identically.
