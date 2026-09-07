@@ -1,0 +1,16 @@
+{
+  "name": "yaelfried-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Regression tests for yaelfried.com, breaktheloop.yaelfried.com and links.yaelfried.com",
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report",
+    "footers": "playwright test specs/footer.spec.js",
+    "links": "playwright test specs/links.spec.js",
+    "forms": "playwright test specs/forms.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
