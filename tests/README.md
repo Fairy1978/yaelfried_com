@@ -86,13 +86,19 @@ submission is wired up correctly.
 
 ## Fixed, and now guarded by tests
 
-**The landing form used to accept a lead with no email address.** Fixed
-2026-09-07: the field is required and the validator rejects an empty value, so
-every lead arrives with a contactable address.
-
 **The language toggle used to go to the other language's home page.** Fixed
 2026-09-07: EN/HE now lands on the matching page, which also gives Google a
 page-level pairing between the two language versions.
+
+## Deliberate decisions the suite protects
+
+**Email on the landing form is optional, on purpose.** Phone is required and is
+the channel that matters; a lead with a phone and no email is still fully
+contactable, while a lead who abandons the form is worth nothing, and forcing an
+email box mostly harvests fake addresses. A typed address must still be well
+formed. Briefly made required on 2026-09-07 and reverted the same day. The test
+`accepts a lead with a phone but no email` guards this, so nobody "fixes" it
+back by accident.
 
 ## Known issue this suite records
 
