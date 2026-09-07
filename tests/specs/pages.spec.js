@@ -52,35 +52,29 @@ test.describe('main site language switcher', () => {
   desktopOnly();
 
   /*
-   * Every page must offer a way into the other language.
+   * The EN/HE toggle must land on the SAME page in the other language.
    *
-   * Note on what this does NOT assert: today the EN/HE toggle on the inner
-   * pages goes to the other language's HOME page, not to the matching page.
-   * From /about-he, "EN" lands on /home-en rather than /about. That is the
-   * site's current behaviour, not a regression, so the suite locks in "there
-   * is a working route into the other language" rather than failing on it.
-   * If the toggle is ever changed to go page-to-page, tighten this to use
-   * `p.alt` and it will start enforcing the stronger promise.
+   * It used to send every inner page to the other language's home page
+   * (from /about-he, "EN" went to /home-en), which lost the reader's place and
+   * gave Google no page-level pairing. Fixed 2026-09-07; this test keeps it fixed.
    */
-  const HE_PATHS = mainPages.filter((x) => x.lang === 'he').map((x) => x.path);
-  const EN_PATHS = mainPages.filter((x) => x.lang === 'en').map((x) => x.path);
-
   for (const p of mainPages) {
-    test(`${p.path} offers a route into ${p.lang === 'he' ? 'English' : 'Hebrew'}`, async ({ page }) => {
+    test(`${p.path} switches to ${p.alt}`, async ({ page }) => {
       await page.goto(p.url, { waitUntil: 'domcontentloaded' });
 
-      const hrefs = await page.evaluate(() =>
-        [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href') || '')
+      const targets = await page.evaluate(() =>
+        [...document.querySelectorAll('a[data-framer-name="en"], a[data-framer-name="he"]')]
+          .map((a) => ({ lang: a.getAttribute('data-framer-name'), href: a.getAttribute('href') || '' }))
       );
+      expect(targets.length, `${p.path}: no language switcher found`).toBeGreaterThan(0);
 
-      const otherPaths = p.lang === 'he' ? EN_PATHS : HE_PATHS;
-      const matches = (target) => {
-        const bare = target === '/' ? 'index' : target.replace(/^\//, '');
-        return hrefs.some((h) => h === target || h.endsWith(bare + '.html') || h.endsWith(bare));
-      };
+      const wantOther = p.lang === 'he' ? 'en' : 'he';
+      const otherLinks = targets.filter((t) => t.lang === wantOther);
+      expect(otherLinks.length, `${p.path}: no link into the other language`).toBeGreaterThan(0);
 
-      const reachable = otherPaths.filter(matches);
-      expect(reachable.length, `${p.path} has no link into the other language at all`).toBeGreaterThan(0);
+      const bare = p.alt === '/' ? 'index' : p.alt.replace(/^\//, '');
+      const wrong = otherLinks.filter((t) => !(t.href === p.alt || t.href.endsWith(bare + '.html')));
+      expect(wrong, `${p.path}: the switcher should go to ${p.alt}, not elsewhere`).toEqual([]);
     });
   }
 });

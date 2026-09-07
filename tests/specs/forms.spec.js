@@ -153,14 +153,11 @@ test.describe('landing page lead form', () => {
       const form = page.locator('#leadForm');
       await expect(form, 'landing: #leadForm is missing').toHaveCount(1);
 
-      // Name and phone are required. Email deliberately is NOT asserted as
-      // required here, because today it is not: see the pinned test below.
-      for (const field of ['firstName', 'phone']) {
+      for (const field of ['firstName', 'phone', 'email']) {
         const input = form.locator(`[name="${field}"]`);
         await expect(input, `landing: missing the ${field} field`).toHaveCount(1);
         await expect(input, `landing: the ${field} field is not required`).toHaveAttribute('required', /.*/);
       }
-      await expect(form.locator('[name="email"]'), 'landing: missing the email field').toHaveCount(1);
       await expect(form.locator('[name="message"]'), 'landing: missing the message field').toHaveCount(1);
       await expect(form.locator('[name="consent"]'), 'landing: missing the consent checkbox').toHaveCount(1);
       await expect(form.locator('#submitBtn'), 'landing: no submit button').toBeVisible();
@@ -188,22 +185,11 @@ test.describe('landing page lead form', () => {
     });
 
     /*
-     * PINNED BEHAVIOUR, NOT AN ENDORSEMENT.
-     *
-     * The landing form currently accepts a submission with the email box left
-     * completely empty: the input carries no `required` attribute and the
-     * script only checks the format of an email that was actually typed. The
-     * error element and its message exist but never display, which suggests
-     * requiring it was the intent.
-     *
-     * The practical effect is that a lead can arrive with a name and a phone
-     * number but no email address.
-     *
-     * This is pinned as-is rather than "fixed" because whether email should be
-     * mandatory is a business decision: requiring it means fewer, more
-     * contactable leads. Flip this test the moment that decision is made.
+     * Email was optional until 2026-09-07: the box had no `required` attribute
+     * and the script only checked the format of an address actually typed, so
+     * leads could arrive with no way to email them back. Now required.
      */
-    test('email is currently optional (pinned, see comment)', async ({ page }) => {
+    test('form refuses a submission with no email', async ({ page }) => {
       const captured = await interceptFormPosts(page);
       await page.goto(p.url, { waitUntil: 'load' });
 
@@ -213,9 +199,8 @@ test.describe('landing page lead form', () => {
       await form.locator('#submitBtn').click();
       await page.waitForTimeout(2500);
 
-      expect(captured.length,
-        'landing: the empty-email submission no longer goes through. If email was ' +
-        'deliberately made required, update this test to expect 0.').toBeGreaterThan(0);
+      expect(captured.length, 'landing: a lead with no email address was submitted').toBe(0);
+      await expect(page.locator('#errEmail'), 'landing: no error shown for the empty email').toBeVisible();
     });
 
     test('form refuses an invalid email', async ({ page }) => {
