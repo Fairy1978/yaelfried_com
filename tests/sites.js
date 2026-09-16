@@ -66,7 +66,7 @@ const SOCIAL_ORDER = ['instagram', 'youtube', 'facebook', 'tiktok'];
 
 const SOCIALS = {
   instagram: 'instagram.com/yaelfried_',
-  facebook: 'facebook.com/',
+  facebook: 'facebook.com/yael.fried.2025',
   youtube: 'youtube.com/@yaelfried',
   tiktok: 'tiktok.com/@yael.fried',
 };
