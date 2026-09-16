@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { mainPages, landingPages, linksPages, SOCIALS } = require('../sites');
+const { mainPages, landingPages, linksPages, SOCIALS, SOCIAL_ORDER } = require('../sites');
 const { topOf, lineCount, horizontalOverflow } = require('../helpers');
 
 /*
@@ -28,8 +28,37 @@ async function visibleSocials(page) {
       href: a.getAttribute('href') || '',
       width: Math.round(a.getBoundingClientRect().width),
       top: Math.round(a.getBoundingClientRect().top),
+      x: Math.round(a.getBoundingClientRect().left),
     }));
   }, ICONS);
+}
+
+/*
+ * The icons read in SOCIAL_ORDER along the page's own direction: right to left
+ * on the RTL pages, left to right on the LTR main site.
+ *
+ * This deliberately sorts by x rather than trusting DOM order. The links page
+ * once had the icons in the right DOM order and a flex-direction: row-reverse
+ * that flipped them on screen, so a DOM-order check would have passed while the
+ * page was wrong.
+ */
+function readingOrder(items, dir) {
+  return [...items]
+    .sort((a, b) => (dir === 'rtl' ? b.x - a.x : a.x - b.x))
+    .map((s) => {
+      const hit = Object.entries(SOCIALS).find(([, fragment]) => s.href.includes(fragment));
+      return hit ? hit[0] : 'unknown';
+    });
+}
+
+/*
+ * Reading direction comes from the page's language, not from its CSS. The main
+ * site ships dir="ltr" on its Hebrew pages as well as its English ones, so
+ * asking the browser for the computed direction would answer "ltr" for a page a
+ * reader scans right to left, and the check would pass on a row that is backwards.
+ */
+function readsRightToLeft(page) {
+  return page.lang === 'he';
 }
 
 test.describe('main site footer', () => {
@@ -58,6 +87,13 @@ test.describe('main site footer', () => {
 
       // One line, always. This is the check that would have caught the 2x2 block.
       expect(new Set(socials.map((s) => s.top)).size, `${p.path}: social icons are not on one line`).toBe(1);
+
+      // ...and in the agreed order, reading the way this page's language reads.
+      const dir = readsRightToLeft(p) ? 'rtl' : 'ltr';
+      expect(
+        readingOrder(socials, dir),
+        `${p.path}: social icons are out of order for ${p.lang} (reads ${dir})`
+      ).toEqual(SOCIAL_ORDER);
 
       // The tagline sits above the icons in both languages.
       const yTag = await topOf(page, TAGLINE);
@@ -119,6 +155,7 @@ test.describe('landing page footer', () => {
         [...document.querySelectorAll('ul.social a')].map((a) => ({
           href: a.getAttribute('href'),
           top: Math.round(a.getBoundingClientRect().top),
+          x: Math.round(a.getBoundingClientRect().left),
         }))
       );
       expect(icons.length, 'landing: expected 4 social icons').toBe(4);
@@ -126,6 +163,12 @@ test.describe('landing page footer', () => {
         expect(icons.filter((i) => i.href.includes(fragment)).length, `landing: missing ${name}`).toBe(1);
       }
       expect(new Set(icons.map((i) => i.top)).size, 'landing: social icons wrapped').toBe(1);
+
+      const landingDir = readsRightToLeft(p) ? 'rtl' : 'ltr';
+      expect(
+        readingOrder(icons, landingDir),
+        `landing: social icons are out of order (reads ${landingDir})`
+      ).toEqual(SOCIAL_ORDER);
 
       const nav = await page.evaluate(() =>
         [...document.querySelectorAll('.footer__nav a')].map((a) => ({
@@ -163,6 +206,7 @@ test.describe('links page', () => {
           href: a.getAttribute('href'),
           label: a.getAttribute('aria-label'),
           top: Math.round(a.getBoundingClientRect().top),
+          x: Math.round(a.getBoundingClientRect().left),
         }))
       );
       expect(icons.length, 'links: expected 4 social icons').toBe(4);
@@ -170,6 +214,12 @@ test.describe('links page', () => {
         expect(icons.filter((i) => i.href.includes(fragment)).length, `links: missing ${name}`).toBe(1);
       }
       expect(new Set(icons.map((i) => i.top)).size, 'links: social icons wrapped').toBe(1);
+
+      const linksDir = readsRightToLeft(p) ? 'rtl' : 'ltr';
+      expect(
+        readingOrder(icons, linksDir),
+        `links: social icons are out of order (reads ${linksDir})`
+      ).toEqual(SOCIAL_ORDER);
       expect(icons.every((i) => i.label && i.label.trim()), 'links: a social icon has no accessible label').toBe(true);
 
       // The row is labelled, and the label does not ask for a follow: nearly

@@ -55,6 +55,15 @@ const linksPages = [
 const allPages = [...mainPages, ...landingPages, ...linksPages];
 
 /* The social accounts that must appear in the footer of all three sites. */
+/*
+ * The order the four icons must appear in, highest priority first, in the
+ * direction the page reads. Ranked by where Yael actually posts rather than by
+ * audience size, so TikTok trails until it has a posting history. All three
+ * properties share it, so a change here is a deliberate decision about all of
+ * them, not about one page.
+ */
+const SOCIAL_ORDER = ['instagram', 'youtube', 'facebook', 'tiktok'];
+
 const SOCIALS = {
   instagram: 'instagram.com/yaelfried_',
   facebook: 'facebook.com/',
@@ -87,6 +96,7 @@ module.exports = {
   linksPages,
   allPages,
   SOCIALS,
+  SOCIAL_ORDER,
   FORM_ENDPOINTS,
   VIEWPORTS,
   OVERFLOW_WIDTHS,
