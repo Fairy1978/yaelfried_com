@@ -1,6 +1,6 @@
 # yaelfried.com
 
-Static website for Yael Fried, a trauma/anxiety therapist (trance & suggestion methods). Bilingual: Hebrew (default) and English.
+Static website for Yael Fried (brand: The Way Back To Yourself), a consciousness guide working with trance and therapeutic suggestion for aware women stuck in a recurring loop. Not a trauma/anxiety positioning; that was dropped in the July 2026 rebrand, see memory `project_who_yael_is_and_the_rebrand.md`. Bilingual: Hebrew (default) and English.
 
 ## Background
 
