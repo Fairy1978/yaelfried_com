@@ -25,7 +25,21 @@ own work as "I" or as a joint "we".
 
 ## Mechanical tests, run by script, never by eye
 
-1. 90 to 105 Hebrew words in the answer. 40 to 45 seconds at roughly 2.2 words per second.
+Tests 1 to 8 are implemented in `.agents/reels/tests_s2.py`. Run it over every source file at once,
+so the cross reel overlap test in item 7 can see all 16 answers together:
+
+    cd .agents/reels && python tests_s2.py s2_source.txt batchAB.txt batchC.txt
+
+It prints one line per reel and exits non zero if any reel fails. Test 9 is `check_fonts.py`,
+run against the saved .docx after the build. Lines marked X are failures. Lines marked ~ are
+warnings for human judgment, mostly repeated roots, which item 5 allows when a callback is the
+structural device.
+
+1. 78 to 90 Hebrew words in the answer. 36 to 40 seconds at roughly 2.2 words per second.
+   Corrected 2026-09-20. The band first written here was 90 to 105, which contradicted every
+   answer that has actually been approved: reel 1 is 84 words, and the batch C drafts are 78 to 86.
+   One of the four rejections was a 90 word answer running 45 seconds, so the original band was
+   the very length she rejected.
 2. Punctuation limited to comma, period, question mark. No dash, maqaf, ellipsis, colon, semicolon,
    exclamation mark.
 3. Zero negation words, and no "it is not X, it is Y" construction.

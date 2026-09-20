@@ -1,0 +1,8 @@
+# Repeated roots that are the structural device of the reel, so T5 stops warning.
+# Format: <reel number> <a word using the root>
+7 החלק
+9 פנוי
+2 האווירה
+2 רגיעה
+15 כורסה
+12 מתאים
