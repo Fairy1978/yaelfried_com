@@ -1,0 +1,48 @@
+SEAT 2 - HEBREW DIRECT-RESPONSE COPYWRITER
+All Hebrew lives in this file. Read it here, not in the terminal.
+
+==========================================================
+PART A - THE REWRITE (77 words total, ~38 seconds spoken)
+==========================================================
+
+--- HOOK / QUESTION, viewer's voice (16 words) ---
+[A1] את כל מה שמוטל עליי אני מספיקה. ודווקא הדבר שאני רוצה נשאר פתוח על המסך. למה?
+
+--- ANSWER, to camera (61 words) ---
+[A2] כי הוא שמור אצלך במקום עמוק יותר.
+[A3] כל השאר רשום ביומן. הוא נוגע במי שאת.
+[A4] ולכן בערב את סוגרת את המחשב ומסדרת את המטבח.
+[A5] החלק ששומר עלייך למד פעם משהו, והוא עדיין נאמן לו.
+[A6] בטראנס וסוגסטיה מגיעים בדיוק לרגע ההוא.
+[A7] ואז גם הוא מקבל שעה ביומן.
+[A8] מה בדיוק החלק הזה למד, בסרטון הבא.
+[A9] השיחה הראשונה היא שיחת היכרות קצרה. הקישור בפרופיל.
+
+--- ALTERNATIVE HOOK, option B ---
+[B1] אני אישה שעומדת בכל מילה שלה. ויש לי דבר אחד שמחכה כבר שנה.
+
+
+==========================================================
+PART B - THE OFFENDING LINES IN THE DRAFT UNDER REVIEW
+==========================================================
+
+[D1] negation-led hook clause:
+     שמת לב שאת לא דוחה כל דבר?
+[D2] negation-led line:
+     וזה לא במקרה.
+[D3] repeated root ד.ח.ה three times:
+     לדחות / דוחה / דוחה
+[D4] repeated word three times:
+     חשוב לי / חשוב לך / חשוב לך יותר
+[D5] long continuous sentence, 17 words, three clauses:
+     ככל שמשהו חשוב לך יותר, כך יש בו יותר מה להפסיד, ותת המודע שלך יודע את זה.
+[D6] sells the subconscious, not the life, three consecutive sentences on the mechanism:
+     ותת המודע שלך יודע את זה. אז הוא עושה את מה שהוא אמור לעשות, שומר עלייך מכישלון ומביקורת. הוא עדיין פועל לפי משהו שלמד עלייך מזמן.
+[D7] the road, not the starting point and the outcome, plus two first-person verbs:
+     אני מגיעה איתך לרגע שבו זה נלמד, ומשחררת אותו
+[D8] promise and superlative, and the toward-pleasure ending bolted onto an away-from-pain script:
+     ואז לקום ולעשות זה הדבר הכי טבעי בעולם.
+[D9] named concepts instead of moments:
+     שומר עלייך מכישלון ומביקורת
+[D10] abstraction instead of a moment:
+     יש בו יותר מה להפסיד

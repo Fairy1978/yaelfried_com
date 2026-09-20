@@ -1,0 +1,28 @@
+COUNCIL SEAT 1 (IDEAL CLIENT) - REEL REWRITE
+Date: 2026-09-20
+Asset: 40s Instagram reel, interviewer question + Yael to camera.
+Hebrew is kept in this file on purpose (chat must stay Hebrew-free).
+
+Punctuation used: commas, periods, one question mark. No maqaf, no em dash, no ellipsis.
+Note for the reader: "תת המודע" is written with a space, deliberately, no maqaf.
+
+=== SEAT 1 REWRITE (70 words total) ===
+
+שאלה:
+למה דווקא את מה שהכי רציתי אני דוחה לסוף?
+
+תשובה:
+תשלומים את סוגרת באותו ערב, לאנשים אחרים את עונה תוך דקה. ורק הדבר ששייך לך ממתין. מתישהו תת המודע שלך למד מה זה יגיד עלייך אם ייצא בינוני, והוא עובד לפי זה עד עכשיו. כשהמשימה עוד לפנייך, הציון נותר פתוח, וזאת ההגנה. בטראנס וסוגסטיה אנחנו חוזרות לרגע שבו זה נקבע, ושם המשמעות ההיא מאבדת אחיזה. ואז גם היא מקבלת שעה ביומן.
+
+=== COMPLIANCE CHECK ===
+Words: question 9, answer 61, total 70 (cap 90). Spoken pace leaves room for pauses inside 40s.
+Negation words (לא / אין / בלי / לא עוד): zero.
+"It is not X it is Y" reframes: zero.
+Lists: one pair only (payments / other people). No group of three.
+Repeated roots: checked one by one, none repeats. Notable near misses avoided:
+  - למד in the mechanism line vs נקבע in the method line (an earlier draft used נלמד twice)
+  - בינוני vs הבין (both root b-y-n, so הבין was dropped)
+  - ביומן vs עד היום (היום replaced with עכשיו)
+  - משאירה vs נשאר (question reworded to דוחה, closing verb changed to נותר)
+Forbidden vocabulary: no היפנוזה, no מטפלת, no doctor title, no medical or cure claim.
+Person: feminine second singular throughout (סוגרת, עונה, לך, עלייך, לפנייך, שלך), plus אנחנו חוזרות.
