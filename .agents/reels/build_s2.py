@@ -19,7 +19,9 @@ SRC = os.path.join(SCRATCH, "s2_source.txt")
 BASE = os.path.join(os.path.expanduser("~"), "OneDrive", "שולחן העבודה",
                     "The Way Back To Yourself", "Podcasts", "Barter Aug 2026")
 TEMPLATE = os.path.join(BASE, "Session 1", "Video Session 1.docx")
-OUT = os.path.join(BASE, "Session 2", "Session 2 - טיוטה.docx")
+# She keeps the working draft on her desktop, as the only copy. 2026-09-20.
+DESKTOP = os.path.join(os.path.expanduser("~"), "OneDrive", "שולחן העבודה")
+OUT = os.path.join(DESKTOP, "Session 2 - טיוטה.docx")
 
 
 def close_in_word():
