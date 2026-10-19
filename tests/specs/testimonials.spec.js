@@ -36,26 +36,35 @@ test.describe('testimonials stay where they were put', () => {
     await expect(first).toContainText(/slept wonderfully last night/i);
   });
 
-  test('the landing page still shows all six testimonial images', async ({ page }) => {
+  // Yael removed the sleep (story-7) and smoking (story-5) testimonials on
+  // 2026-10-19; the page now shows five, in the order she set.
+  test('the landing page still shows its five testimonial images', async ({ page }) => {
     await page.goto(`${origin.landing}/`, { waitUntil: 'load' });
 
-    for (const file of ['story-1', 'story-2', 'story-3', 'story-4', 'story-5', 'story-6', 'story-7']) {
+    for (const file of ['story-1', 'story-2', 'story-3', 'story-4', 'story-6']) {
       await expect(
         page.locator(`#testimonials img[src*="${file}"]`),
         `${file} is missing from the landing page testimonials`
       ).toHaveCount(1);
     }
+    for (const file of ['story-5', 'story-7']) {
+      await expect(
+        page.locator(`#testimonials img[src*="${file}"]`),
+        `${file} was removed on purpose and is back on the page`
+      ).toHaveCount(0);
+    }
   });
 
-  test('the landing page keeps the new testimonial between driving and smoking', async ({ page }) => {
+  test('the landing page keeps the testimonials in the order she set', async ({ page }) => {
     await page.goto(`${origin.landing}/`, { waitUntil: 'load' });
 
     const order = await page.locator('#testimonials img').evaluateAll(
       imgs => imgs.map(i => i.getAttribute('src'))
     );
     const idx = name => order.findIndex(s => s.includes(name));
-    expect(idx('story-4'), 'driving is missing').toBeGreaterThan(-1);
-    expect(idx('story-7')).toBeGreaterThan(idx('story-4'));
-    expect(idx('story-5')).toBeGreaterThan(idx('story-7'));
+    const expected = ['story-1', 'story-2', 'story-3', 'story-6', 'story-4'];
+    for (let i = 1; i < expected.length; i++) {
+      expect(idx(expected[i]), `${expected[i]} is out of order`).toBeGreaterThan(idx(expected[i - 1]));
+    }
   });
 });
