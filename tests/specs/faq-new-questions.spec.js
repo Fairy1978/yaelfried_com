@@ -23,8 +23,17 @@ for (const [path, questions] of Object.entries(PAGES)) {
   });
 }
 
-test('Hebrew contact description leaves out Zoom', async ({ request }) => {
+// Her call (2026-10-24): Zoom stays in the Google description, and is
+// off the visible contact pages; she explains it on the intro call.
+for (const [path, sentence] of [['/contact-he', 'המפגשים מתקיימים בזום.'], ['/contact', 'Sessions are held online via Zoom.']]) {
+  test(`${path} keeps Zoom off the visible page`, async ({ request }) => {
+    const html = await (await request.get(MAIN + path)).text();
+    expect(html).not.toContain(`>${sentence}</p>`);
+  });
+}
+
+test('Hebrew contact Google description still mentions Zoom', async ({ request }) => {
   const html = await (await request.get(MAIN + '/contact-he')).text();
   const metas = html.match(/<meta[^>]*>/g).join('\n');
-  expect(metas).not.toContain('בזום');
+  expect(metas).toContain('המפגשים מתקיימים בזום.');
 });
